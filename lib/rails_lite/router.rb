@@ -10,7 +10,7 @@ class Route
 
   def matches?(req)
     self.pattern =~ req.path &&
-    req.request_method.downcase.to_sym == self.http_method
+      req.request_method.downcase.to_sym == self.http_method
   end
 
   def run(req, res)
@@ -42,7 +42,8 @@ class Router
   end
 
   def match(req)
-    self.routes.select { |route| route.matches?(req) }.first
+    self.routes.each { |route| return route if route.matches?(req) }
+    nil
   end
 
   def run(req, res)
