@@ -6,10 +6,12 @@ class Params
     @params = {}
     parse_www_encoded_form(req.query_string)
     parse_www_encoded_form(req.body)
+    @params = @params.merge(route_params)
+
   end
 
   def [](key)
-    @params[key]
+    @params[key.to_s]
   end
 
   def to_s
