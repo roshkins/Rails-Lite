@@ -13,13 +13,14 @@ trap('INT') { server.shutdown }
 class ExampleController < ControllerBase
   def create
     render_content(params.to_s, "text/json")
+    #render_content("hi", "text/text")
   end
 
   def new
     page = <<-END
 <form action="/" method="post">
   <input type="text" name="cat[name]">
-  <input type="text" name="cat[owner]">
+  <input type="text" name="cat[owner][type]">
 
   <input type="submit">
 </form>
