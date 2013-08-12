@@ -16,6 +16,10 @@ class ControllerBase
     @session ||= Session.new(@req)
   end
 
+  def flash
+    @flash ||= session[:flash]
+  end
+
   def already_rendered?
     @already_rendered
   end
@@ -26,6 +30,7 @@ class ControllerBase
       @res["Location"] = url
       @res.status = 302
       @already_rendered = true
+      @flash = nil
     else
       raise "Double render encountered in redirect_to."
     end
@@ -37,10 +42,10 @@ class ControllerBase
       @res.content_type = content_type
       @res.body         = body
       @already_rendered = true
+      @flash = nil
     else
       raise "Double render encountered in render_content."
     end
-
   end
 
   def render(template_name)
